@@ -95,7 +95,7 @@ table tr:nth-child(even) {
     background: lightgrey;
 }
 
-table tr:nth-child(2) {
+table tr:nth-child(0) {
     background: #646464;
 }
 

@@ -31,9 +31,11 @@ function ViewModel() {
     self.courses = new operations(base + "courses");
     self.courses.get();
 
+    self.students = new operations(base + "students");
+    self.students.get();
+
     console.log(self.courses);
 }
-
 
 
 var viewModel = new ViewModel();

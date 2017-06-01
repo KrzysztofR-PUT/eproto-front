@@ -49,37 +49,19 @@
                         <td><input name="searchdate" type="search" placeholder="Szukaj daty"></td>
                         <td></td>
                     </tr>
+                    <tbody data-bind="foreach: students">
                     <tr>
-                        <td><input name="index" type="number" value="123" disabled></td>
-                        <td><input name="name" type="text" value="Jan" placeholder="Imię" required></td>
-                        <td><input name="surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
-                        <td><input name="birthdate" type="date" value="2000-01-01" required></td>
+                        <td><input data-bind="value: index" type="number" disabled></td>
+                        <td><input data-bind="value: name" type="text" value="Jan" placeholder="Imię" required></td>
+                        <td><input data-bind="value: surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
+                        <td><input data-bind="value: birthdate" type="date" value="2000-01-01" required></td>
                         <td>
                             <button type="button">Szczegóły</button>
                             <button type="submit">Zapisz</button>
                             <button type="button">Usuń</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input name="index" type="number" value="123" disabled></td>
-                        <td><input name="name" type="text" value="Jan" placeholder="Imię" required></td>
-                        <td><input name="surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
-                        <td><input name="birthdate" type="date" value="2000-01-01" required></td>
-                        <td>
-                            <button type="button">Szczegóły</button>
-                            <button type="submit">Zapisz</button>
-                            <button type="button">Usuń</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input name="addindex" type="number" placeholder="index" required></td>
-                        <td><input name="addname" type="text" placeholder="Imię" required></td>
-                        <td><input name="addsurname" type="text" placeholder="Nazwisko" required></td>
-                        <td><input name="addbirthdate" type="date" required></td>
-                        <td>
-                            <button type="submit">Dodaj</button>
-                        </td>
-                    </tr>
+                    </tbody>
                 </table>
             </article>
         </form>
