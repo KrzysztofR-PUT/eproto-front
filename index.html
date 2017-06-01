@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TPSI eproto</title>
+    <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="knockout.js"></script>
+    <script type="text/javascript" src="mapping.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+
+<body>
+
+<header>
+    <img src="resources/pplogo.png" alt="logo"/>
+    <h2>TPSI eproto</h2>
+</header>
+
+<div class="eproto-container">
+
+    <nav class="eproto-navigation">
+        <ul>
+            <li><a href="#studentsList">Lista studentów</a></li>
+            <li><a href="#studentGrades">Oceny studenta</a></li>
+            <li><a href="#coursesList">Lista kursów</a></li>
+        </ul>
+    </nav>
+
+    <div class="eproto-content">
+
+        <form id="studentsList" class="tableform">
+            <article>
+                <h2>Lista studentów</h2>
+                <table>
+                    <tr>
+                        <th>Nr indeksu</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Data urodzenia</th>
+                        <th>Dostępne operacje</th>
+                    </tr>
+                    <tr>
+                        <td><input name="searchindex" type="search" placeholder="Szukaj indeksu"></td>
+                        <td><input name="searchname" type="search" placeholder="Szukaj imienia"></td>
+                        <td><input name="searchsurname" type="search" placeholder="Szukaj nazwiska"></td>
+                        <td><input name="searchdate" type="search" placeholder="Szukaj daty"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input name="index" type="number" value="123" disabled></td>
+                        <td><input name="name" type="text" value="Jan" placeholder="Imię" required></td>
+                        <td><input name="surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
+                        <td><input name="birthdate" type="date" value="2000-01-01" required></td>
+                        <td>
+                            <button type="button">Szczegóły</button>
+                            <button type="submit">Zapisz</button>
+                            <button type="button">Usuń</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input name="index" type="number" value="123" disabled></td>
+                        <td><input name="name" type="text" value="Jan" placeholder="Imię" required></td>
+                        <td><input name="surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
+                        <td><input name="birthdate" type="date" value="2000-01-01" required></td>
+                        <td>
+                            <button type="button">Szczegóły</button>
+                            <button type="submit">Zapisz</button>
+                            <button type="button">Usuń</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input name="addindex" type="number" placeholder="index" required></td>
+                        <td><input name="addname" type="text" placeholder="Imię" required></td>
+                        <td><input name="addsurname" type="text" placeholder="Nazwisko" required></td>
+                        <td><input name="addbirthdate" type="date" required></td>
+                        <td>
+                            <button type="submit">Dodaj</button>
+                        </td>
+                    </tr>
+                </table>
+            </article>
+        </form>
+
+
+        <form id="studentGrades" class="tableform">
+            <article>
+                <h2>Oceny studenta</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Ocena</th>
+                        <th>Nazwa kursu</th>
+                        <th>Data</th>
+                        <th>Dostępne operacje</th>
+                    </tr>
+                    <tr>
+                        <td><input name="searchgrade" type="search" placeholder="Szukaj oceny"></td>
+                        <td><input name="searchcourse" type="search" placeholder="Szukaj kursu"></td>
+                        <td><input name="searchcdate" type="search" placeholder="Szukaj daty"></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td><input name="grade" type="number" step="0.5" value="3" min="2" max="5" required></td>
+                        <td>
+                            <select>
+                                <option value="tpsi">Technologie Programistyczne - Systemy Internetowe</option>
+                                <option value="human">Przedmiot humanistyczny</option>
+                            </select>
+                        </td>
+                        <td><input name="gradedate" type="date" value="2017-01-01" required></td>
+                        <td>
+                            <button type="button">Szczegóły</button>
+                            <button type="submit">Zapisz</button>
+                            <button type="button">Usuń</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input name="grade" type="number" placeholder="Ocena" step="0.5" min="2" max="5" required>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="tpsi">Technologie Programistyczne - Systemy Internetowe</option>
+                                <option value="human">Przedmiot humanistyczny</option>
+                            </select>
+                        </td>
+                        <td><input name="gradedate" type="date" required></td>
+                        <td>
+                            <button type="submit">Dodaj</button>
+                        </td>
+                    </tr>
+                </table>
+            </article>
+        </form>
+
+        <form id="coursesList" class="tableform">
+            <article>
+                <h2>Lista kursów</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nazwa kursu</th>
+                        <th>Prowadzący</th>
+                        <th>Dostępne informacje</th>
+                    </tr>
+                    <tr>
+                        <td><input name="searchlgrade" type="search" placeholder="Szukaj kursu"></td>
+                        <td><input name="searchlecturer" type="search" placeholder="Szukaj prowadzącego"></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: courses">
+                    <tr>
+                        <td>
+                            <input type="text" data-bind="value: name" placeholder="Przedmiot"
+                                   required/>
+                        </td>
+                        <td><input type="text" data-bind="value: lecturer" placeholder="Nazwisko"
+                                   required></td>
+                        <td>
+                            <button type="button">Szczegóły</button>
+                            <button type="submit">Zapisz</button>
+                            <button type="button">Usuń</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tr>
+                        <td>
+                            <input name="course" type="text" placeholder="Przedmiot" required/>
+                        </td>
+                        <td><input name="lecturer" type="text" placeholder="Nazwisko" required></td>
+                        <td>
+                            <button type="submit">Dodaj</button>
+                        </td>
+                    </tr>
+                </table>
+            </article>
+        </form>
+    </div>
+
+</div>
+<footer>
+    <p>Krzysztof Rózga, WI, TWO</p>
+    <a href="https://www.put.poznan.pl">Politechnika Poznańska</a>
+    <a href="http://fc.put.poznan.pl/index.php">Wydział Informatyki</a>
+</footer>
+</body>
+</html>
