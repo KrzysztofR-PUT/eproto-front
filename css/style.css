@@ -99,13 +99,17 @@ table tr:nth-child(0) {
     background: #646464;
 }
 
-table tr:last-child {
-    background-color: #646464;
+/*table tr:last-child {*/
+    /*background-color: #646464;*/
+/*}*/
+
+.submitRow {
+    background-color: lightblue;
 }
 
-table tr:last-child input {
-    color: white;
-}
+/*table tr:last-child input {*/
+    /*color: white;*/
+/*}*/
 
 table th {
     background: #393939;
@@ -153,6 +157,15 @@ footer {
     background: -o-linear-gradient(#646464, #393939); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#646464, #393939); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#646464, #393939); /* Standard syntax */
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
 }
 
 @media screen and  (max-width: 1000px){

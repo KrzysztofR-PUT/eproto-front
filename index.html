@@ -24,17 +24,18 @@
     <nav class="eproto-navigation">
         <ul>
             <li><a href="#studentsList">Lista studentów</a></li>
-            <li><a href="#studentGrades">Oceny studenta</a></li>
+            <!--<li><a href="#studentGrades">Oceny studenta</a></li>-->
             <li><a href="#coursesList">Lista kursów</a></li>
         </ul>
     </nav>
 
     <div class="eproto-content">
 
-        <form id="studentsList" class="tableform">
+        <div id="studentsList" class="tableform">
             <article>
                 <h2>Lista studentów</h2>
                 <table>
+                    <thead>
                     <tr>
                         <th>Nr indeksu</th>
                         <th>Imię</th>
@@ -49,6 +50,7 @@
                         <td><input name="searchdate" type="search" placeholder="Szukaj daty"></td>
                         <td></td>
                     </tr>
+                    </thead>
                     <tbody data-bind="foreach: students">
                     <tr>
                         <td><input data-bind="value: index" type="number" disabled></td>
@@ -56,18 +58,78 @@
                         <td><input data-bind="value: surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
                         <td><input data-bind="value: birthdate" type="date" value="2000-01-01" required></td>
                         <td>
-                            <button type="button">Szczegóły</button>
-                            <button type="submit">Zapisz</button>
-                            <button type="button">Usuń</button>
+                            <button data-bind="click: $parent.students.put" type="submit">Zapisz</button>
+                            <button data-bind="click: $parent.students.delete" type="button">Usuń</button>
                         </td>
                     </tr>
                     </tbody>
+                    <tr class="submitRow">
+                        <form data-bind="submit: students.new">
+                            <td>
+                                <input data-bind="value: indexInput" type="number" placeholder="Index" required>
+                            </td>
+                            <td>
+                                <input data-bind="value: nameInput" type="text" placeholder="Imię" required/>
+                            </td>
+                            <td><input data-bind="value: surnameInput" type="text" placeholder="Nazwisko" required></td>
+                            <td>
+                                <input data-bind="value: birthdateInput" type="date" placeholder="Data urodzin" required/>
+                            </td>
+                            <td>
+                                <button type="submit">Dodaj</button>
+                            </td>
+                        </form>
+                    </tr>
                 </table>
             </article>
-        </form>
+        </div>
 
-
-        <form id="studentGrades" class="tableform">
+        <div id="coursesList" class="tableform">
+            <article>
+                <h2>Lista kursów</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nazwa kursu</th>
+                        <th>Prowadzący</th>
+                        <th>Dostępne informacje</th>
+                    </tr>
+                    <tr>
+                        <td><input type="search" placeholder="Szukaj kursu"></td>
+                        <td><input type="search" placeholder="Szukaj prowadzącego"></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: courses">
+                    <tr>
+                        <td>
+                            <input type="text" data-bind="value: name" placeholder="Przedmiot"
+                                   required/>
+                        </td>
+                        <td><input type="text" data-bind="value: lecturer" placeholder="Nazwisko"
+                                   required></td>
+                        <td>
+                            <button data-bind="click: $parent.courses.seeGrades" type="button">Oceny</button>
+                            <button data-bind="click: $parent.courses.put" type="button">Zapisz</button>
+                            <button data-bind="click: $parent.courses.delete" type="button">Usuń</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tr class="submitRow">
+                        <form data-bind="submit: courses.new">
+                        <td>
+                            <input data-bind="value: courseName" type="text" placeholder="Przedmiot" required/>
+                        </td>
+                        <td><input data-bind="value: lecturerName" type="text" placeholder="Nazwisko" required></td>
+                        <td>
+                            <button type="submit">Dodaj</button>
+                        </td>
+                        </form>
+                    </tr>
+                </table>
+            </article>
+        </div>
+        <form id="courseGrades" class="tableform">
             <article>
                 <h2>Oceny studenta</h2>
                 <table>
@@ -117,51 +179,9 @@
                 </table>
             </article>
         </form>
-
-        <form id="coursesList" class="tableform">
-            <article>
-                <h2>Lista kursów</h2>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Nazwa kursu</th>
-                        <th>Prowadzący</th>
-                        <th>Dostępne informacje</th>
-                    </tr>
-                    <tr>
-                        <td><input name="searchlgrade" type="search" placeholder="Szukaj kursu"></td>
-                        <td><input name="searchlecturer" type="search" placeholder="Szukaj prowadzącego"></td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody data-bind="foreach: courses">
-                    <tr>
-                        <td>
-                            <input type="text" data-bind="value: name" placeholder="Przedmiot"
-                                   required/>
-                        </td>
-                        <td><input type="text" data-bind="value: lecturer" placeholder="Nazwisko"
-                                   required></td>
-                        <td>
-                            <button type="button">Szczegóły</button>
-                            <button type="submit">Zapisz</button>
-                            <button type="button">Usuń</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tr>
-                        <td>
-                            <input name="course" type="text" placeholder="Przedmiot" required/>
-                        </td>
-                        <td><input name="lecturer" type="text" placeholder="Nazwisko" required></td>
-                        <td>
-                            <button type="submit">Dodaj</button>
-                        </td>
-                    </tr>
-                </table>
-            </article>
-        </form>
     </div>
+
+
 
 </div>
 <footer>
