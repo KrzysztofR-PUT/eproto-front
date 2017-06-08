@@ -55,7 +55,8 @@
                     <tr>
                         <td><input data-bind="value: index" type="number" disabled></td>
                         <td><input data-bind="value: name" type="text" value="Jan" placeholder="Imię" required></td>
-                        <td><input data-bind="value: surname" type="text" value="Kowalski" placeholder="Nazwisko" required></td>
+                        <td><input data-bind="value: surname" type="text" value="Kowalski" placeholder="Nazwisko"
+                                   required></td>
                         <td><input data-bind="value: birthdate" type="date" value="2000-01-01" required></td>
                         <td>
                             <button data-bind="click: $parent.students.put" type="submit">Zapisz</button>
@@ -73,7 +74,8 @@
                             </td>
                             <td><input data-bind="value: surnameInput" type="text" placeholder="Nazwisko" required></td>
                             <td>
-                                <input data-bind="value: birthdateInput" type="date" placeholder="Data urodzin" required/>
+                                <input data-bind="value: birthdateInput" type="date" placeholder="Data urodzin"
+                                       required/>
                             </td>
                             <td>
                                 <button type="submit">Dodaj</button>
@@ -117,19 +119,19 @@
                     </tbody>
                     <tr class="submitRow">
                         <form data-bind="submit: courses.new">
-                        <td>
-                            <input data-bind="value: courseName" type="text" placeholder="Przedmiot" required/>
-                        </td>
-                        <td><input data-bind="value: lecturerName" type="text" placeholder="Nazwisko" required></td>
-                        <td>
-                            <button type="submit">Dodaj</button>
-                        </td>
+                            <td>
+                                <input data-bind="value: courseName" type="text" placeholder="Przedmiot" required/>
+                            </td>
+                            <td><input data-bind="value: lecturerName" type="text" placeholder="Nazwisko" required></td>
+                            <td>
+                                <button type="submit">Dodaj</button>
+                            </td>
                         </form>
                     </tr>
                 </table>
             </article>
         </div>
-        <form id="courseGrades" class="tableform">
+        <div id="courseGrades" class="tableform">
             <article>
                 <h2>Oceny studenta</h2>
                 <table>
@@ -147,40 +149,39 @@
                         <td></td>
                     </tr>
                     </thead>
+                    <tbody data-bind="foreach: grades">
                     <tr>
-                        <td><input name="grade" type="number" step="0.5" value="3" min="2" max="5" required></td>
+                        <td><input type="number" data-bind="value: value" step="0.5" value="3" min="2" max="5"
+                                   placeholder="Ocena" required/></td>
+                        <td><select
+                                data-bind="options: $parent.courses, optionsText: $parent.getCourseName, optionsValue: $parent.getCourseValue, value: course.id"
+                                required></select></td>
+                        <td><input type="date" data-bind="value: date" step="0.5" value="3" min="2" max="5"
+                                   placeholder="Ocena" required/></td>
                         <td>
-                            <select>
-                                <option value="tpsi">Technologie Programistyczne - Systemy Internetowe</option>
-                                <option value="human">Przedmiot humanistyczny</option>
-                            </select>
-                        </td>
-                        <td><input name="gradedate" type="date" value="2017-01-01" required></td>
-                        <td>
-                            <button type="button">Szczegóły</button>
                             <button type="submit">Zapisz</button>
-                            <button type="button">Usuń</button>
+                            <button type="button" data-bind="click: $parent.grades.remove">Usuń</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input name="grade" type="number" placeholder="Ocena" step="0.5" min="2" max="5" required>
-                        </td>
-                        <td>
-                            <select>
-                                <option value="tpsi">Technologie Programistyczne - Systemy Internetowe</option>
-                                <option value="human">Przedmiot humanistyczny</option>
-                            </select>
-                        </td>
-                        <td><input name="gradedate" type="date" required></td>
-                        <td>
-                            <button type="submit">Dodaj</button>
-                        </td>
+                    </tbody>
+                    <tr class="submitRow">
+                        <form data-bind="submit: grades.new">
+                            <td><input data-bind="value: gradeValueInput" type="number" placeholder="Ocena" step="0.5"
+                                       min="2" max="5" required>
+                            </td>
+                            <td><select
+                                    data-bind="value: gradeCourseIdInput,options: courses, optionsText: getCourseName, optionsValue: getCourseValue"
+                                    required></select></td>
+                            <td><input data-bind="value: gradeDateInput" type="date" required></td>
+                            <td>
+                                <button type="submit">Dodaj</button>
+                            </td>
+                        </form>
                     </tr>
                 </table>
             </article>
-        </form>
+        </div>
     </div>
-
 
 
 </div>
