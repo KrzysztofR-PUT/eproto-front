@@ -117,6 +117,7 @@ function ViewModel() {
 
     self.gradeValueInput = ko.observable();
     self.gradeCourseIdInput = ko.observable();
+    self.gradeStudentIndexInput = ko.observable();
     self.gradeDateInput = ko.observable();
 
     self.grades = new operations();
@@ -130,26 +131,40 @@ function ViewModel() {
     self.grades.new = function() {
         self.grades.post({
             course : { id : self.gradeCourseIdInput},
-            student : {index : 111},
+            student : {index : self.gradeStudentIndexInput},
             value : self.gradeValueInput,
             date : self.gradeDateInput
         });
     };
 
-    self.grades.remove = function (object) {
+    self.grades.delete = function (object) {
         console.log(object);
-        var urlToDelete = self.grades.url + "/" + object.id;
-        console.log(urlToDelete);
         $.ajax({
             method: "DELETE",
-            url: urlToDelete,
+            url: self.grades.url + "/" + object.id,
             success: function () {
-                //alert("Usunięto pomyślnie!");
                 self.grades.removeAll();
                 self.grades.get();
             },
             error: function () {
                 alert("Błąd usuwania!");
+            }
+        })
+    };
+
+    self.grades.putt = function (object) {
+        console.log(object.course.id);
+        $.ajax({
+            method: "PUT",
+            url: self.grades.url + "/" + object.id,
+            contentType: "application/json",
+            data: ko.mapping.toJSON(object),
+            success: function () {
+                self.grades.removeAll();
+                self.grades.get();
+            },
+            error: function () {
+                alert("Nie uaktualniono!");
             }
         })
     }
@@ -160,6 +175,14 @@ function ViewModel() {
 
     self.getCourseValue = function (course) {
         return course.id;
+    }
+
+    self.getStudentName = function (student) {
+        return student.name;
+    };
+
+    self.getStudentValue = function (student) {
+        return student.index;
     }
 }
 

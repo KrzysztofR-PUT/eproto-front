@@ -139,13 +139,15 @@
                     <tr>
                         <th>Ocena</th>
                         <th>Nazwa kursu</th>
+                        <th>Student</th>
                         <th>Data</th>
                         <th>Dostępne operacje</th>
                     </tr>
                     <tr>
                         <td><input name="searchgrade" type="search" placeholder="Szukaj oceny"></td>
                         <td><input name="searchcourse" type="search" placeholder="Szukaj kursu"></td>
-                        <td><input name="searchcdate" type="search" placeholder="Szukaj daty"></td>
+                        <td><input name="searchstudent" type="search" placeholder="Szukaj studenta"></td>
+                        <td><input name="searchdate" type="search" placeholder="Szukaj daty"></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -156,11 +158,13 @@
                         <td><select
                                 data-bind="options: $parent.courses, optionsText: $parent.getCourseName, optionsValue: $parent.getCourseValue, value: course.id"
                                 required></select></td>
+                        <td><select
+                                data-bind="options: $parent.students, optionsText: $parent.getStudentName, optionsValue: $parent.getStudentValue, value: student.index" required></select></td>
                         <td><input type="date" data-bind="value: date" step="0.5" value="3" min="2" max="5"
                                    placeholder="Ocena" required/></td>
                         <td>
-                            <button type="submit">Zapisz</button>
-                            <button type="button" data-bind="click: $parent.grades.remove">Usuń</button>
+                            <button type="button" data-bind="click: $parent.grades.putt">Zapisz</button>
+                            <button type="button" data-bind="click: $parent.grades.delete">Usuń</button>
                         </td>
                     </tr>
                     </tbody>
@@ -172,6 +176,8 @@
                             <td><select
                                     data-bind="value: gradeCourseIdInput,options: courses, optionsText: getCourseName, optionsValue: getCourseValue"
                                     required></select></td>
+                            <td><select
+                                    data-bind="options: students, optionsText: getStudentName, optionsValue: getStudentValue, value: gradeStudentIndexInput" required></select></td>
                             <td><input data-bind="value: gradeDateInput" type="date" required></td>
                             <td>
                                 <button type="submit">Dodaj</button>
