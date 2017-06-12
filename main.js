@@ -80,28 +80,56 @@ var operations = function(baseurl) {
         })
     };
 
+    self.getWithQuery = function(query) {
+        $.ajax({
+            url: self.url + "?" + $.param(query),
+            success: function (data) {
+                self.removeAll();
+                $.each(data, function (i, item) {
+                    self.push(item);
+                })
+            }
+        })
+    };
 
     return self;
 };
 
+function studentSearch() {
+    var self = this;
+    self.index = ko.observable('');
+    self.name = ko.observable('');
+    self.surname = ko.observable('');
+    self.date = ko.observable('');
+}
+
+function courseSearch() {
+    var self = this;
+    self.name = ko.observable('');
+    self.lecturer = ko.observable('');
+}
+
+function gradeSearch() {
+    var self = this;
+    self.grade = ko.observable('');
+    //self.coursename = ko.observable('');
+    self.studentname = ko.observable('');
+    self.date = ko.observable('');
+}
 
 function ViewModel() {
     var self = this;
 
-
-
-    self.indexInput = ko.observable();
     self.nameInput = ko.observable();
     self.surnameInput = ko.observable();
     self.birthdateInput = ko.observable();
 
     self.students = new operations(base + "/students");
     self.students.get();
+    self.students.search = new studentSearch();
     self.students.new = function () {
-        self.students.post({index: self.indexInput, name: self.nameInput, surname: self.surnameInput, birthdate: self.birthdateInput});
+        self.students.post({name: self.nameInput, surname: self.surnameInput, birthdate: self.birthdateInput});
     };
-
-
 
 
     self.courseName = ko.observable();
@@ -109,6 +137,7 @@ function ViewModel() {
 
     self.courses = new operations(base + "/courses");
     self.courses.get();
+    self.courses.search = new courseSearch();
     self.courses.new = function () {
         self.courses.post({name: self.courseName, lecturer: self.lecturerName});
     };
@@ -121,7 +150,10 @@ function ViewModel() {
     self.gradeDateInput = ko.observable();
 
     self.grades = new operations();
+    self.grades.currentCourseId = null;
+    self.grades.search = new gradeSearch();
     self.courses.seeGrades = function (object) {
+        self.grades.currentCourse = object;
         self.grades.url = base + links(object).self + "/grades";
         self.grades.removeAll();
         self.grades.get();
@@ -130,7 +162,7 @@ function ViewModel() {
     };
     self.grades.new = function() {
         self.grades.post({
-            course : { id : self.gradeCourseIdInput},
+            course : { id : self.grades.currentCourse.id},
             student : {index : self.gradeStudentIndexInput},
             value : self.gradeValueInput,
             date : self.gradeDateInput
@@ -167,7 +199,7 @@ function ViewModel() {
                 alert("Nie uaktualniono!");
             }
         })
-    }
+    };
 
     self.getCourseName = function (course) {
         return course.name;
@@ -175,15 +207,35 @@ function ViewModel() {
 
     self.getCourseValue = function (course) {
         return course.id;
-    }
+    };
 
     self.getStudentName = function (student) {
-        return student.name;
+        return student.name + " " + student.surname;
     };
 
     self.getStudentValue = function (student) {
         return student.index;
-    }
+    };
+
+
+    ko.computed(function() {
+        return ko.toJSON(self.students.search);
+    }).subscribe(function() {
+        self.students.getWithQuery(self.students.search);
+    });
+
+    ko.computed(function() {
+        return ko.toJSON(self.courses.search);
+    }).subscribe(function() {
+        self.courses.getWithQuery(self.courses.search);
+    });
+
+    ko.computed(function() {
+        return ko.toJSON(self.grades.search);
+    }).subscribe(function() {
+        console.log(self.grades.search);
+        self.grades.getWithQuery(self.grades.search);
+    });
 }
 
 var viewModel = new ViewModel();
